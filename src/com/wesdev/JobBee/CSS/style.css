@@ -1,0 +1,52 @@
+
+/*---------------------------------------------
+ * Application Form CSS
+ *-------------------------------------------*/
+.list-cell {
+     -fx-background-color: #4f4c49;
+}
+
+.list-cell:selected {
+    -fx-background-color: #faf5e1;
+}
+
+.applications {
+    -fx-background-color: #f2c233;
+    -fx-padding: 5px 10px 5px 10px;
+    -fx-background-radius: 10;
+}
+
+.applicationInfos {
+    -fx-spacing: 10px;
+}
+
+.application-view-buttons {
+    -fx-background-color: #faf5e1;
+    -fx-text-fill:  #4f4c49;
+    -fx-font-size: 14px;
+}
+
+.button:hover {
+    -fx-background-color: #f2c233;
+}
+
+
+
+/*---------------------------------------------
+ * Application Form CSS
+ *-------------------------------------------*/
+
+.submit-button {
+    -fx-background-color: transparent;
+}
+
+.submit-button:hover {
+    -fx-background-color: #363331;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);
+}
+
+.invalid-input {
+    -fx-border-width: 5;
+    -fx-border-style: solid none none none;
+    -fx-border-color: red;
+}

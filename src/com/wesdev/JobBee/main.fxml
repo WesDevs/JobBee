@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Polyline?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<GridPane alignment="center" hgap="10" stylesheets="@CSS/style.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wesdev.JobBee.Controllers.MainController">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <BorderPane prefHeight="600.0" prefWidth="1000.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+            <center>
+                <StackPane fx:id="mainStackPane" BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox fx:id="addEntryStack" alignment="CENTER" fillWidth="false" prefHeight="599.0" prefWidth="795.0" style="-fx-background-color: #4f4c49;">
+                            <fx:include source="applicationForm.fxml" />
+                        </VBox>
+                        <VBox fx:id="dataViewStack" maxHeight="1.7976931348623157E308" prefHeight="558.0" prefWidth="626.0" style="-fx-background-color: #4f4c49;">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="544.0" spacing="10.0" style="-fx-background-color: #4f4c49;">
+                                    <children>
+                                        <Button mnemonicParsing="false" styleClass="submit-button" onAction="#listAllCompanies" style="-fx-background-color: transparent;" text="Companies" textFill="#f2c233">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                            <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                            </cursor>
+                                            <HBox.margin>
+                                                <Insets />
+                                            </HBox.margin>
+                                            <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0">
+                                                    <image>
+                                                        <Image url="@assets/hexagon.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button mnemonicParsing="false" styleClass="submit-button" onAction="#listAllApplications" style="-fx-background-color: transparent;" text="Applications" textFill="#f2c233">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                            <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0">
+                                                    <image>
+                                                        <Image url="@assets/hexagon.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button mnemonicParsing="false" styleClass="submit-button" onAction="#listAllFollowUps" style="-fx-background-color: transparent;" text="FollowUps" textFill="#f2c233">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                            <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0">
+                                                    <image>
+                                                        <Image url="@assets/hexagon.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button mnemonicParsing="false" styleClass="submit-button" onAction="#listCombinedView" style="-fx-background-color: transparent;" text="CombinedView" textFill="#f2c233">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                            <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0">
+                                                    <image>
+                                                        <Image url="@assets/hexagon.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                                    </padding>
+                                </HBox>
+                                <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="529.0" prefWidth="814.0">
+                                    <children>
+                                        <TableView fx:id="companyTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="432.0" prefWidth="524.0">
+                                            <columns>
+                                                <TableColumn prefWidth="100.0" text="Name">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="name" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="Notes">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="note" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="Active">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="active" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                            </columns>
+                                            <StackPane.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                            </StackPane.margin>
+                                        </TableView>
+                                        <TableView fx:id="applicationsTable" prefHeight="432.0" prefWidth="524.0" visible="false">
+                                            <columns>
+                                                <TableColumn prefWidth="100.0" text="CompanyName">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="companyName" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="Position">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="jobTitle" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="AppliedOn">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="applicationDate" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="PostedOn">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="postedDate" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="InterviewDate">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="interviewDate" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="Posting">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="postingUrl" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="ResponseType">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="responseType" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                            </columns>
+                                            <StackPane.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                            </StackPane.margin>
+                                        </TableView>
+                                        <TableView fx:id="followUpsTable" prefHeight="432.0" prefWidth="524.0" visible="false">
+                                            <columns>
+                                                <TableColumn prefWidth="100.0" text="Name">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="contactName" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="Email">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="contactEmail" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="1stFollowUp">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="followUp1" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="2ndFollowUp">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="followUp2" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="3rdFollowUp">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="followUp3" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="4thFollowUp">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="followUp4" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="Feedback">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="feedback" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                            </columns>
+                                            <StackPane.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                            </StackPane.margin>
+                                        </TableView>
+                                        <TableView fx:id="combinedViewTable" prefHeight="200.0" prefWidth="200.0">
+                                            <columns>
+                                                <TableColumn prefWidth="100.0" text="CompanyName">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="name" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="Active">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="active" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="Position">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="jobTitle" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="DatedPosted">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="postedDate" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="DateApplied">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="applicationDate" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="PostingUrl">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="postingUrl" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="IntervieDate">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="interviewDate" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="Response">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="responseType" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="Notes">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="note" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="ContactName">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="contactName" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="ContactEmail">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="contactEmail" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="FollowUp1">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="followUp1" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="FollowUp2">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="followUp2" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="FollowUp3">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="followUp3" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="FollowUp4">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="followUp4" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="Feedback">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="feedback" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </VBox>
+                        <VBox fx:id="appViewStack" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4f4c49;">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="544.0" spacing="10.0" style="-fx-background-color: #4f4c49;">
+                                    <padding>
+                                        <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+                                    </padding>
+                                    <children>
+                              <HBox>
+                                 <children>
+                                              <ImageView fitHeight="20.0" fitWidth="20.0">
+                                                  <image>
+                                                      <Image url="@assets/hexagon.png" />
+                                                  </image>
+                                              </ImageView>
+                                              <Text fill="#f2c233" strokeType="OUTSIDE" strokeWidth="0.0" text="Active Applications" wrappingWidth="155.78748321533203">
+                                                  <font>
+                                                      <Font name="System Bold" size="16.0" />
+                                                  </font>
+                                              </Text>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="674.0" spacing="20.0">
+                                 <children>
+                                    <CheckBox fx:id="toggleActiveApps" onAction="#showApplications" mnemonicParsing="false" prefHeight="18.0" prefWidth="112.0" text="Show Inactive" textFill="#f2c233">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <Button fx:id="updateApplication" mnemonicParsing="false" styleClass="application-view-buttons" text="Update" />
+                                    <Button fx:id="deactivateApplication" mnemonicParsing="false" styleClass="application-view-buttons" text="Deactivate" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" />
+                                 </padding>
+                              </HBox>
+                                    </children>
+                                </HBox>
+                                <ListView fx:id="applicationListView" prefHeight="543.0" prefWidth="814.0" style="-fx-background-color: transparent;">
+                                </ListView>
+                            </children>
+                        </VBox>
+                        <VBox fx:id="statStack" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4f4c49;">
+                            <children>
+                                <HBox alignment="CENTER" prefHeight="43.0" prefWidth="814.0" spacing="20.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#listAllCompanies" style="-fx-background-color: transparent;" text="OverView" textFill="#f2c233">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                            <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                            </cursor>
+                                            <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0">
+                                                    <image>
+                                                        <Image url="@assets/hexagon.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <HBox.margin>
+                                                <Insets />
+                                            </HBox.margin>
+                                        </Button>
+                                        <Button mnemonicParsing="false" onAction="#listAllCompanies" style="-fx-background-color: transparent;" text="Timeline" textFill="#f2c233">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                            <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                            </cursor>
+                                            <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0">
+                                                    <image>
+                                                        <Image url="@assets/hexagon.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                </HBox>
+                        <StackPane prefHeight="564.0" prefWidth="814.0">
+                           <children>
+                              <HBox prefHeight="304.0" prefWidth="814.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="542.0" prefWidth="862.0" spacing="20.0">
+                                       <children>
+                                          <ImageView fitHeight="80.0" fitWidth="78.0">
+                                             <image>
+                                                <Image url="@assets/hive.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Label prefHeight="26.0" prefWidth="216.0" text="Total Job Applications: 23" textAlignment="CENTER" textFill="#f2c233">
+                                             <font>
+                                                <Font name="System Bold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="26.0" prefWidth="219.0" text="Total Active Applications: 8" textAlignment="CENTER" textFill="#f2c233">
+                                             <font>
+                                                <Font name="System Bold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="26.0" prefWidth="225.0" text="Total Positive Responses: 5" textAlignment="CENTER" textFill="#f2c233">
+                                             <font>
+                                                <Font name="System Bold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="26.0" prefWidth="322.0" text="Total Amount of Companies Applied: 21" textAlignment="CENTER" textFill="#f2c233">
+                                             <font>
+                                                <Font name="System Bold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="26.0" prefWidth="235.0" text="Total Feedbacks Recieved: 4" textAlignment="CENTER" textFill="#f2c233">
+                                             <font>
+                                                <Font name="System Bold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="26.0" prefWidth="166.0" text="Total Rejections: 10" textAlignment="CENTER" textFill="#f2c233">
+                                             <font>
+                                                <Font name="System Bold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </StackPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </StackPane>
+            </center>
+            <left>
+                <VBox alignment="TOP_CENTER" prefHeight="558.0" prefWidth="186.0" spacing="10.0" style="-fx-background-color: #faf5e1;" BorderPane.alignment="TOP_CENTER">
+
+                    <children>
+                        <VBox>
+                            <children>
+                                <VBox alignment="CENTER" prefHeight="138.0" prefWidth="176.0" style="-fx-background-color: #faf5e1;">
+                                    <children>
+                                        <ImageView fitHeight="64.0" fitWidth="64.0">
+                                            <image>
+                                                <Image url="@assets/bee.png" />
+                                            </image>
+                                        </ImageView>
+                                        <TextFlow style="-fx-border-style: solid none solid none; -fx-border-width: 2; -fx-border-color: #f2c233;" textAlignment="CENTER">
+                                            <children>
+                                                <Text fill="#e8b730" strokeType="OUTSIDE" strokeWidth="0.0" text="Beelieve In You!" textAlignment="CENTER" wrappingWidth="132.82293462753296">
+                                                    <font>
+                                                        <Font name="Malgun Gothic Semilight" size="21.0" />
+                                                    </font>
+                                                </Text>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets left="10.0" right="10.0" top="10.0" />
+                                            </VBox.margin>
+                                        </TextFlow>
+                                    </children>
+                                </VBox>
+                                <VBox spacing="10.0">
+                                    <children>
+                                        <StackPane onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+                                            <children>
+                                                <Polyline fill="#ffaa00" points="-21.200084686279297, 40.00001525878906, -2.0000782012939453, 68.80000305175781, 112.39999389648438, 68.79999542236328, 94.80001831054688, 40.00000762939453" stroke="TRANSPARENT" strokeType="INSIDE" />
+                                                <HBox alignment="CENTER">
+                                                    <children>
+                                                        <Button fx:id="appButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#showApps" prefHeight="0.0" prefWidth="99.0" style="-fx-background-color: transparent;" text="Applications" textAlignment="CENTER" textFill="WHITE">
+                                                            <font>
+                                                                <Font name="Gill Sans MT" size="14.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                                                            <image>
+                                                                <Image url="@assets/files-and-folders.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </StackPane>
+                                        <StackPane onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+                                            <children>
+                                                <Polyline fill="#ff5200" points="-21.200084686279297, 40.00001525878906, -2.0000782012939453, 68.80000305175781, 112.39999389648438, 68.79999542236328, 94.80001831054688, 40.00000762939453" stroke="TRANSPARENT" strokeType="INSIDE" />
+                                                <HBox alignment="CENTER" prefHeight="30.0" prefWidth="102.0">
+                                                    <children>
+                                                        <Button fx:id="addEntryButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#toggleViews" prefHeight="0.0" prefWidth="99.0" style="-fx-background-color: transparent;" text="Add Entry" textAlignment="CENTER" textFill="WHITE">
+                                                            <font>
+                                                                <Font name="Gill Sans MT" size="14.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                                                            <image>
+                                                                <Image url="@assets/notepad.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </StackPane>
+                                        <StackPane onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+                                            <children>
+                                                <Polyline fill="#7d36ff" points="-21.200084686279297, 40.00001525878906, -2.0000782012939453, 68.80000305175781, 112.39999389648438, 68.79999542236328, 94.80001831054688, 40.00000762939453" stroke="TRANSPARENT" strokeType="INSIDE" />
+                                                <HBox alignment="CENTER" prefHeight="29.0" prefWidth="141.0">
+                                                    <children>
+                                                        <Button fx:id="statsButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#toggleViews" prefHeight="0.0" prefWidth="99.0" style="-fx-background-color: transparent;" text="Statistics" textFill="WHITE">
+                                                            <font>
+                                                                <Font name="Gill Sans MT" size="14.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                                                            <image>
+                                                                <Image url="@assets/stats.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </StackPane>
+                                        <StackPane onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+                                            <children>
+                                                <Polyline fill="#4cd21f" points="-21.200084686279297, 40.00001525878906, -2.0000782012939453, 68.80000305175781, 112.39999389648438, 68.79999542236328, 94.80001831054688, 40.00000762939453" stroke="TRANSPARENT" strokeType="INSIDE" />
+                                                <HBox alignment="CENTER">
+                                                    <children>
+                                                        <Button fx:id="dataViewButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#toggleViews" prefHeight="0.0" prefWidth="99.0" style="-fx-background-color: transparent;" text="DataView" textAlignment="CENTER" textFill="WHITE">
+                                                            <font>
+                                                                <Font name="Gill Sans MT" size="14.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                                                            <image>
+                                                                <Image url="@assets/server.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </StackPane>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </left>
+        </BorderPane>
+    </children>
+</GridPane>

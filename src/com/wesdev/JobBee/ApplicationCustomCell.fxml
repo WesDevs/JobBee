@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<fx:root type="javafx.scene.control.ListCell" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml">
+    <graphic>
+        <VBox styleClass="applications">
+            <children>
+                <HBox styleClass="applicationInfos">
+                    <children>
+                        <Label fx:id="companyName"></Label>
+                    </children>
+                    <children>
+                        <Label fx:id="activeStatus"></Label>
+                    </children>
+                    <children>
+                        <ImageView fx:id="imageView" fitHeight="15.0" fitWidth="15.0"></ImageView>
+                    </children>
+                </HBox>
+            </children>
+            <HBox styleClass="applicationInfos">
+                <children>
+                    <Label fx:id="jobTitle"></Label>
+                </children>
+                <children>
+                    <Label fx:id="nextFollowUpDate"></Label>
+                </children>
+                <children>
+                    <Label fx:id="dateApplied"></Label>
+                </children>
+                <children>
+                    <Label fx:id="contactPerson"></Label>
+                </children>
+                <children>
+                    <Label fx:id="contactEmail"></Label>
+                </children>
+            </HBox>
+        </VBox>
+    </graphic>
+</fx:root>
