@@ -241,6 +241,6 @@ public class MainController {
         String UAce = UAcontactEmail.getText();
         String UAupdatedDate = LocalDate.now().toString();
 
-        bolean successUpdate = Datasource.getInstance().updateFollowUp(UAf1, UAf2, UAf3, UAf4, UAfb, UAcp, UAce, UAupdatedDate);
+        boolean successUpdate = Datasource.getInstance().updateFollowUp(UAf1, UAf2, UAf3, UAf4, UAfb, UAcp, UAce, UAupdatedDate);
     }
 }
