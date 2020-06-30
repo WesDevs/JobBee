@@ -6,8 +6,12 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -35,14 +39,11 @@
             <center>
                 <StackPane fx:id="mainStackPane" BorderPane.alignment="CENTER">
                     <children>
-                        <VBox fx:id="addEntryStack" alignment="CENTER" fillWidth="false" prefHeight="599.0" prefWidth="795.0" style="-fx-background-color: #4f4c49;">
-                            <fx:include source="applicationForm.fxml" />
-                        </VBox>
                         <VBox fx:id="dataViewStack" maxHeight="1.7976931348623157E308" prefHeight="558.0" prefWidth="626.0" style="-fx-background-color: #4f4c49;">
                             <children>
                                 <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="544.0" spacing="10.0" style="-fx-background-color: #4f4c49;">
                                     <children>
-                                        <Button mnemonicParsing="false" styleClass="submit-button" onAction="#listAllCompanies" style="-fx-background-color: transparent;" text="Companies" textFill="#f2c233">
+                                        <Button mnemonicParsing="false" onAction="#listAllCompanies" style="-fx-background-color: transparent;" styleClass="submit-button" text="Companies" textFill="#f2c233">
                                             <font>
                                                 <Font name="System Bold" size="16.0" />
                                             </font>
@@ -60,7 +61,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </Button>
-                                        <Button mnemonicParsing="false" styleClass="submit-button" onAction="#listAllApplications" style="-fx-background-color: transparent;" text="Applications" textFill="#f2c233">
+                                        <Button mnemonicParsing="false" onAction="#listAllApplications" style="-fx-background-color: transparent;" styleClass="submit-button" text="Applications" textFill="#f2c233">
                                             <font>
                                                 <Font name="System Bold" size="16.0" />
                                             </font>
@@ -72,7 +73,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </Button>
-                                        <Button mnemonicParsing="false" styleClass="submit-button" onAction="#listAllFollowUps" style="-fx-background-color: transparent;" text="FollowUps" textFill="#f2c233">
+                                        <Button mnemonicParsing="false" onAction="#listAllFollowUps" style="-fx-background-color: transparent;" styleClass="submit-button" text="FollowUps" textFill="#f2c233">
                                             <font>
                                                 <Font name="System Bold" size="16.0" />
                                             </font>
@@ -84,7 +85,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </Button>
-                                        <Button mnemonicParsing="false" styleClass="submit-button" onAction="#listCombinedView" style="-fx-background-color: transparent;" text="CombinedView" textFill="#f2c233">
+                                        <Button mnemonicParsing="false" onAction="#listCombinedView" style="-fx-background-color: transparent;" styleClass="submit-button" text="CombinedView" textFill="#f2c233">
                                             <font>
                                                 <Font name="System Bold" size="16.0" />
                                             </font>
@@ -297,8 +298,167 @@
                                 </StackPane>
                             </children>
                         </VBox>
+                  <VBox fx:id="updateAppForm" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4f4c49;">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="544.0" spacing="10.0" style="-fx-background-color: #4f4c49;">
+                           <padding>
+                              <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0">
+                                       <image>
+                                          <Image url="@assets/hexagon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Text fill="#f2c233" strokeType="OUTSIDE" strokeWidth="0.0" text=" Update Application" wrappingWidth="155.78748321533203">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <VBox prefHeight="537.0" prefWidth="814.0" spacing="10.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="814.0" spacing="10.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="110.0" text="Contact Person:" textFill="#f2c233">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="UAcontactPerson" prefHeight="26.0" prefWidth="169.0" />
+                                    <Label prefHeight="20.0" prefWidth="104.0" text="Contact Email:" textFill="#f2c233">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="UAcontactEmail" prefHeight="26.0" prefWidth="263.0" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="814.0" spacing="30.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="110.0" text="1st Follow Up" textFill="#f2c233">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextArea fx:id="UAfollowUp1" prefHeight="100.0" prefWidth="510.0" wrapText="true" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="814.0" spacing="30.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="110.0" text="2nd Follow Up" textFill="#f2c233">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextArea fx:id="UAfollowUp2" prefHeight="100.0" prefWidth="510.0" wrapText="true" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="814.0" spacing="30.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="110.0" text="3rd Follow Up" textFill="#f2c233">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextArea fx:id="UAfollowUp3" prefHeight="100.0" prefWidth="510.0" wrapText="true" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="814.0" spacing="30.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="110.0" text="Last Follow Up" textFill="#f2c233">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextArea fx:id="UAfollowUp4" prefHeight="100.0" prefWidth="510.0" wrapText="true" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="814.0" spacing="30.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="110.0" text="Feedback" textFill="#f2c233">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextArea fx:id="UAfeedback" prefHeight="100.0" prefWidth="510.0" wrapText="true" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="48.0" prefWidth="814.0" spacing="20.0">
+                                 <children>
+                                    <Text fill="#f2c233" strokeType="OUTSIDE" strokeWidth="0.0" text="Response:" wrappingWidth="69.59997272491455">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <RadioButton mnemonicParsing="false" prefHeight="20.0" prefWidth="86.0" text="Positive" textFill="#0eed42">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="responseType" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton mnemonicParsing="false" prefHeight="20.0" prefWidth="86.0" text="Neutral" textFill="#ffe292" toggleGroup="$responseType">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </RadioButton>
+                                    <RadioButton mnemonicParsing="false" prefHeight="20.0" prefWidth="86.0" text="Decline" textFill="#fd5b5b" toggleGroup="$responseType">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </RadioButton>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="68.0" prefWidth="814.0">
+                                 <children>
+                                    <Button fx:id="UAsubmit" alignment="TOP_CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#submitApplicationUpdate" prefHeight="38.0" prefWidth="106.0" styleClass="submit-button" text="Update" textFill="#f2c233">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0">
+                                             <image>
+                                                <Image url="@assets/hexagon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                        <VBox fx:id="addEntryStack" alignment="CENTER" fillWidth="false" prefHeight="599.0" prefWidth="795.0" style="-fx-background-color: #4f4c49;">
+                            <fx:include source="applicationForm.fxml" />
+                        </VBox>
                         <VBox fx:id="appViewStack" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4f4c49;">
-                            <children>
+                     <children>
                                 <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="544.0" spacing="10.0" style="-fx-background-color: #4f4c49;">
                                     <padding>
                                         <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
@@ -320,12 +480,12 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="674.0" spacing="20.0">
                                  <children>
-                                    <CheckBox fx:id="toggleActiveApps" onAction="#showApplications" mnemonicParsing="false" prefHeight="18.0" prefWidth="112.0" text="Show Inactive" textFill="#f2c233">
+                                    <CheckBox fx:id="toggleActiveApps" mnemonicParsing="false" onAction="#showApplications" prefHeight="18.0" prefWidth="112.0" text="Show Inactive" textFill="#f2c233">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </CheckBox>
-                                    <Button fx:id="updateApplication" mnemonicParsing="false" styleClass="application-view-buttons" text="Update" />
+                                    <Button fx:id="updateApplication" mnemonicParsing="false" onAction="#updateApplication" styleClass="application-view-buttons" text="Update" />
                                     <Button fx:id="deactivateApplication" mnemonicParsing="false" styleClass="application-view-buttons" text="Deactivate" />
                                  </children>
                                  <padding>
@@ -334,9 +494,9 @@
                               </HBox>
                                     </children>
                                 </HBox>
-                                <ListView fx:id="applicationListView" prefHeight="543.0" prefWidth="814.0" style="-fx-background-color: transparent;">
+                                <ListView fx:id="applicationListView" prefHeight="541.0" prefWidth="814.0" style="-fx-background-color: transparent;">
                                 </ListView>
-                            </children>
+                     </children>
                         </VBox>
                         <VBox fx:id="statStack" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4f4c49;">
                             <children>
@@ -390,6 +550,9 @@
                                              <image>
                                                 <Image url="@assets/hive.png" />
                                              </image>
+                                             <VBox.margin>
+                                                <Insets bottom="30.0" />
+                                             </VBox.margin>
                                           </ImageView>
                                           <Label prefHeight="26.0" prefWidth="216.0" text="Total Job Applications: 23" textAlignment="CENTER" textFill="#f2c233">
                                              <font>

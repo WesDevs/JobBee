@@ -10,7 +10,7 @@ public enum SqlKeys {
     CREATE_APPLICATIONS("CREATE table IF NOT EXISTS applications (_id text NOT NULL, company text, " +
             "companyName text, jobTitle text, applicationDate text, postedDate text, followUp text, interviewDate text, posting_url text, responseType int, reminderDate text)"),
     CREATE_FOLLOWUPS("CREATE table IF NOT EXISTS followUps (application text, contactName text, " +
-            "contactEmail text, FollowUp1 text, FollowUp2 text, FollowUp3 text, FollowUp4 text, feedback text)"),
+            "contactEmail text, FollowUp1 text, FollowUp2 text, FollowUp3 text, FollowUp4 text, feedback text, lastUpdated text)"),
 
     NAME("name"),
     ID("_id"),
@@ -36,6 +36,7 @@ public enum SqlKeys {
     FOLLOWUP_3("followUp3"),
     FOLLOWUP_4("followUp4"),
     DOT("."),
+    LAST_UPDATED("lastUpdated"),
     SELECT_ALL("SELECT * FROM ");
 
 

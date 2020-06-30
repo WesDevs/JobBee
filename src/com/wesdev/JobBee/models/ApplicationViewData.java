@@ -9,8 +9,18 @@ public class ApplicationViewData {
     private String dateApplied;
     private String contactPerson;
     private String contactEmail;
+    private String applicationId;
+    private String lastUpdated;
 
     public ApplicationViewData() {};
+
+    public String getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(String lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 
     public ApplicationViewData(String companyName) {
         this.companyName = companyName;
@@ -70,5 +80,13 @@ public class ApplicationViewData {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public String getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(String applicationId) {
+        this.applicationId = applicationId;
     }
 }

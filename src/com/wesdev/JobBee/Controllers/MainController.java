@@ -6,13 +6,13 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+
+import java.time.LocalDate;
 
 public class MainController {
 
@@ -41,6 +41,9 @@ public class MainController {
     private VBox dataViewStack;
 
     @FXML
+    private VBox updateAppForm;
+
+    @FXML
     private Button appButton;
 
     @FXML
@@ -53,6 +56,9 @@ public class MainController {
     private Button dataViewButton;
 
     @FXML
+    private Button UAsubmit;
+
+    @FXML
     private StackPane mainStackPane;
 
     @FXML
@@ -60,6 +66,27 @@ public class MainController {
 
     @FXML
     private CheckBox toggleActiveApps;
+
+    @FXML
+    private TextArea UAfollowUp1;
+
+    @FXML
+    private TextArea UAfollowUp2;
+
+    @FXML
+    private TextArea UAfollowUp3;
+
+    @FXML
+    private TextArea UAfollowUp4;
+
+    @FXML
+    private TextArea UAfeedback;
+
+    @FXML
+    private TextField UAcontactPerson;
+
+    @FXML
+    private TextField UAcontactEmail;
 
     @FXML
     private void initialize() {
@@ -182,5 +209,38 @@ public class MainController {
         applicationListView.itemsProperty().bind(task.valueProperty());
 
         new Thread(task).start();
+    }
+
+    @FXML
+    public void updateApplication() {
+        System.out.println(applicationListView.getSelectionModel().getSelectedItems().get(0).getApplicationId());
+        hideAllPanes();
+        updateAppForm.setVisible(true);
+
+        FollowUp followUp = Datasource.getInstance()
+                .retrieveFollowUp(applicationListView.getSelectionModel().getSelectedItems().get(0).getApplicationId());
+
+        UAcontactPerson.setText(followUp.getContactName());
+        UAcontactEmail.setText(followUp.getContactEmail());
+        UAfollowUp1.setText(followUp.getFollowUp1());
+        UAfollowUp2.setText(followUp.getFollowUp2());
+        UAfollowUp3.setText(followUp.getFollowUp3());
+        UAfollowUp4.setText(followUp.getFollowUp4());
+        UAfeedback.setText(followUp.getFeedback());
+    }
+
+    @FXML
+    public void submitApplicationUpdate() {
+
+        String UAf1 =  UAfollowUp1.getText();
+        String UAf2 =  UAfollowUp2.getText();
+        String UAf3 =  UAfollowUp3.getText();
+        String UAf4 =  UAfollowUp4.getText();
+        String UAfb = UAfeedback.getText();
+        String UAcp = UAcontactPerson.getText();
+        String UAce = UAcontactEmail.getText();
+        String UAupdatedDate = LocalDate.now().toString();
+
+        bolean successUpdate = Datasource.getInstance().updateFollowUp(UAf1, UAf2, UAf3, UAf4, UAfb, UAcp, UAce, UAupdatedDate);
     }
 }

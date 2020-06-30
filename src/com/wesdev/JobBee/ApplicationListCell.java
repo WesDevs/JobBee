@@ -31,6 +31,8 @@ public class ApplicationListCell extends ListCell<ApplicationViewData> {
     private Label contactEmail;
     @FXML
     private ImageView imageView;
+    @FXML
+    private Label appId;
 
     public ApplicationListCell() {
         loadFXML();
@@ -65,11 +67,17 @@ public class ApplicationListCell extends ListCell<ApplicationViewData> {
             contactPerson.setText("Contact: " + item.getContactPerson());
             contactEmail.setText(item.getContactEmail());
             dateApplied.setText("Applied on: " + item.getDateApplied());
+            appId.setText(item.getApplicationId());
 
             if (LocalDate.parse(item.getNextFollowUpDate()).isEqual(LocalDate.now())) {
-                InputStream inStream = getClass().getResourceAsStream("assets/alert.png");
-                Image imageObject = new Image(inStream);
-                imageView.setImage(imageObject);
+
+                if (item.getLastUpdated() == null
+                        || item.getLastUpdated() != null && !LocalDate.parse(item.getLastUpdated()).isEqual(LocalDate.now())) {
+                    InputStream inStream = getClass().getResourceAsStream("assets/alert.png");
+                    Image imageObject = new Image(inStream);
+                    imageView.setImage(imageObject);
+                }
+
             } else {
                 imageView.setImage(null);
             }

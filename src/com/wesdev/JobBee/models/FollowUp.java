@@ -10,6 +10,7 @@ public class FollowUp {
     private SimpleStringProperty followUp3;
     private SimpleStringProperty followUp4;
     private SimpleStringProperty feedback;
+    private SimpleStringProperty lastUpdated;
 
     public FollowUp() {
         this.contactName = new SimpleStringProperty();
@@ -107,6 +108,18 @@ public class FollowUp {
     }
 
     public SimpleStringProperty feedbackVal() {
+        return this.feedback;
+    }
+
+    public String getLastUpdated() {
+        return lastUpdated.get();
+    }
+
+    public void setLastUpdated(String lastUpdated) {
+        this.lastUpdated.set(lastUpdated);
+    }
+
+    public SimpleStringProperty lastUpdatedVal() {
         return this.feedback;
     }
 }

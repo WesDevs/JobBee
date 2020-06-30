@@ -18,6 +18,9 @@
                     <children>
                         <ImageView fx:id="imageView" fitHeight="15.0" fitWidth="15.0"></ImageView>
                     </children>
+                    <children>
+                        <Label fx:id="appId" visible="false"></Label>
+                    </children>
                 </HBox>
             </children>
             <HBox styleClass="applicationInfos">

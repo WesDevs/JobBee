@@ -35,7 +35,9 @@ public class Datasource {
             + TABLE_FOLLOWUPS.val() + DOT.val() + FOLLOWUP_2.val() + ", "
             + TABLE_FOLLOWUPS.val() + DOT.val() + FOLLOWUP_3.val() + ", "
             + TABLE_FOLLOWUPS.val() + DOT.val() + FOLLOWUP_4.val() + ", "
-            + TABLE_FOLLOWUPS.val() + DOT.val() + FEEDBACK.val()
+            + TABLE_FOLLOWUPS.val() + DOT.val() + FEEDBACK.val() + ", "
+            + TABLE_APPLICATIONS.val() + DOT.val() + ID.val() + ", "
+            + TABLE_FOLLOWUPS.val() + DOT.val() + LAST_UPDATED.val()
             + " FROM " + TABLE_APPLICATIONS.val() + " JOIN " + TABLE_COMPANIES.val()
             + " ON " + TABLE_COMPANIES.val() + DOT.val() + ID.val() + " = "
             + TABLE_APPLICATIONS.val() + DOT.val() + COMPANY.val() + " JOIN "
@@ -44,23 +46,25 @@ public class Datasource {
 
     public static final String QUERY_COMPANIES = "SELECT " + ID.val() + " FROM "
             + TABLE_COMPANIES.val() + " WHERE " + NAME.val() + " = ?";
-    public static final String QUERY_FOLLOWUPS = "SELECT " + ID.val() + " FROM "
-            + TABLE_FOLLOWUPS + " WHERE " + APPLICATION.val() + " = ?";
+    public static final String QUERY_FOLLOWUP = SELECT_ALL.val()
+            + TABLE_FOLLOWUPS.val() + " WHERE " + APPLICATION.val() + " = ?";
 
     public static final String INSERT_COMPANIES = "INSERT INTO " + TABLE_COMPANIES.val()
             + " ( " + ID.val() + ", " + NAME.val() + ", " + NOTES.val() + ", " + ACTIVE.val() + " ) VALUES(?, ?, ?, ?)";
 
     public static final String INSERT_APPLICATIONS = "INSERT INTO " + TABLE_APPLICATIONS.val()
             + " ( " + ID.val() + ", " + COMPANY.val() + ", " + COMPANY_NAME.val() + ", "
-            + JOB_TITLE.val() + ", " +  APPLICATION_DATE.val() + ", " +  POSTED_DATE.val()
-            + ", " +  REMINDER_DATE.val() + ", " +  RESPONSE_TYPE.val()
-            + ", " +  POSTING_URL.val() + " ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            + JOB_TITLE.val() + ", " + APPLICATION_DATE.val() + ", " + POSTED_DATE.val()
+            + ", " + REMINDER_DATE.val() + ", " + RESPONSE_TYPE.val()
+            + ", " + POSTING_URL.val() + " ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     public static final String INSERT_FOLLOWUPS = "INSERT INTO " + TABLE_FOLLOWUPS.val()
             + " ( " + APPLICATION.val() + ", " + CONTACT_NAME.val() + ", "
             + CONTACT_EMAIL.val() + ", " + FEEDBACK.val() + ", " + FOLLOWUP_1.val()
             + ", " + FOLLOWUP_2.val() + ", " + FOLLOWUP_3.val() + ", " + FOLLOWUP_4.val()
             + " ) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+
+
 
     private static final String CREATE_COMPANIES_TABLE = CREATE_COMPANIES.val();
     private static final String CREATE_APPLICATIONS_TABLE = CREATE_APPLICATIONS.val();
@@ -75,6 +79,7 @@ public class Datasource {
     private PreparedStatement insertIntoCompanies;
     private PreparedStatement insertIntoApplications;
     private PreparedStatement insertIntoFollowUps;
+    private PreparedStatement queryFollowUp;
 
     private Connection conn;
 
@@ -82,10 +87,11 @@ public class Datasource {
         try {
             conn = DriverManager.getConnection(CONNECTION_STRING);
             setUp();
-            queryCompanies =  conn.prepareStatement(QUERY_COMPANIES);
+            queryCompanies = conn.prepareStatement(QUERY_COMPANIES);
             insertIntoCompanies = conn.prepareStatement(INSERT_COMPANIES);
             insertIntoApplications = conn.prepareStatement(INSERT_APPLICATIONS);
             insertIntoFollowUps = conn.prepareStatement(INSERT_FOLLOWUPS);
+            queryFollowUp = conn.prepareStatement(QUERY_FOLLOWUP);
 
             return true;
         } catch (SQLException e) {
@@ -110,6 +116,9 @@ public class Datasource {
             if (insertIntoFollowUps != null) {
                 insertIntoFollowUps.close();
             }
+            if (queryFollowUp != null) {
+                queryFollowUp.close();
+            }
             if (conn != null) {
                 conn.close();
             }
@@ -128,7 +137,7 @@ public class Datasource {
 
     private void setUp() throws SQLException {
 
-        try(Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             statement.addBatch(CREATE_COMPANIES_TABLE);
             statement.addBatch(CREATE_APPLICATIONS_TABLE);
             statement.addBatch(CREATE_FOLLOWUPS_TABLE);
@@ -272,6 +281,8 @@ public class Datasource {
                 avd.setDateApplied(results.getString(5));
                 avd.setContactPerson(results.getString(10));
                 avd.setContactEmail(results.getString(11));
+                avd.setApplicationId(results.getString(17));
+                avd.setLastUpdated(results.getString(18));
 
                 if (avd.getDateApplied() != null) {
                     long daysSinceApplied = ChronoUnit.DAYS.between(LocalDate.parse(avd.getDateApplied()), LocalDate.now());
@@ -334,9 +345,8 @@ public class Datasource {
     }
 
 
-
     private String insertIntoApplication(String companyName, String jobTitle, String dateApplied, String postedDate,
-                                         String postingUrl, String notes, String reminderDate, String companyId) throws SQLException {
+                                         String postingUrl, String reminderDate, String companyId) throws SQLException {
 
         String uid = UUID.randomUUID().toString();
 
@@ -358,8 +368,8 @@ public class Datasource {
         }
     }
 
-    private boolean insertIntoFollowUps( String applicationId, String contactName, String contactEmail, String followUp1, String followUp2,
-                                         String followUp3, String followUp4, String feedback) throws SQLException {
+    private boolean insertIntoFollowUps(String applicationId, String contactName, String contactEmail, String followUp1, String followUp2,
+                                        String followUp3, String followUp4, String feedback) throws SQLException {
 
         insertIntoFollowUps.setString(1, applicationId);
         insertIntoFollowUps.setString(2, contactName);
@@ -379,15 +389,15 @@ public class Datasource {
     }
 
     public void insertFullApplication(String companyName, String jobTitle, String dateApplied, String postedDate,
-                                         String postingUrl, String notes, String reminderDate, String contactName, String contactEmail) {
+                                      String postingUrl, String notes, String reminderDate, String contactName, String contactEmail) {
 
         try {
             conn.setAutoCommit(false);
             String companyId = insertCompanies(companyName, notes);
             String applicationId = insertIntoApplication(companyName, jobTitle, dateApplied, postedDate, postingUrl,
-                    notes, reminderDate, companyId);
+                    reminderDate, companyId);
             boolean insertIntoFollowUps = insertIntoFollowUps(applicationId, contactName, contactEmail,
-                    null, null, null,  null, null);
+                    null, null, null, null, null);
 
 
             if (!insertIntoFollowUps) {
@@ -398,20 +408,50 @@ public class Datasource {
 
         } catch (Exception e) {
             System.out.println("Insert full application exception: " + e.getMessage());
-
             try {
                 System.out.println("Performing roll back.");
                 conn.rollback();
             } catch (SQLException ex) {
                 System.out.println("Issue with rolling back: " + ex.getMessage());
-            } finally {
-                try {
-                    System.out.println("RESETTING auto commit to true");
-                    conn.setAutoCommit(true);
-                } catch (SQLException ex) {
-                    System.out.println("Failed to reset auto commit to true: " + ex.getMessage());
-                }
+            }
+        } finally {
+            System.out.println("RESETTING auto commit to true");
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                System.out.println("Failed to reset auto commit to true: " + e.getMessage());
             }
         }
     }
+
+    public FollowUp retrieveFollowUp(String applicationId) {
+        try {
+            queryFollowUp.setString(1, applicationId);
+            ResultSet results = queryFollowUp.executeQuery();
+            FollowUp followUp = new FollowUp();
+
+            if (results.next()) {
+                followUp.setContactName(results.getString(2));
+                followUp.setContactEmail(results.getString(3));
+                followUp.setFollowUp1(results.getString(4));
+                followUp.setFollowUp2(results.getString(5));
+                followUp.setFollowUp3(results.getString(6));
+                followUp.setFollowUp4(results.getString(7));
+                followUp.setFeedback(results.getString(8));
+            }
+
+            return followUp;
+
+        } catch (SQLException e) {
+            System.out.println("Unable to retrieve follow up: " + e.getMessage());
+        }
+
+        return null;
+    }
+
+    public boolean updateFollowUp(String UAf1, String UAf2, String UAf3, String UAf4, String UAfb, String UAcp, String UAce, String UAupdatedDate) {
+
+        return false;
+    }
+
 }
