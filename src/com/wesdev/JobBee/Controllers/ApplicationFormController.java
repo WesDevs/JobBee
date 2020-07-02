@@ -192,18 +192,6 @@ public class ApplicationFormController {
 
             successOverlay.setVisible(true);
 
-            textFields.forEach(tf -> tf.clear());
-            applicationDate.getEditor().clear();
-            postedDate.getEditor().clear();
-
-            try {
-                Thread.sleep(3000);
-                closeOverlay();
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-
-
             return true;
         } else {
             errorOverlay.setVisible(true);
