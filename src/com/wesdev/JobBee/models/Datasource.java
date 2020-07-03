@@ -64,6 +64,16 @@ public class Datasource {
             + ", " + FOLLOWUP_2.val() + ", " + FOLLOWUP_3.val() + ", " + FOLLOWUP_4.val()
             + " ) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
+    public static final String UPDATE_FOLLOWUP = "UPDATE " + TABLE_FOLLOWUPS.val() + " SET " +
+            CONTACT_NAME.val() + " = ?, " +
+            CONTACT_EMAIL.val() + " = ?, " +
+            FOLLOWUP_1.val() + " = ?, " +
+            FOLLOWUP_2.val() + " = ?, " +
+            FOLLOWUP_3.val() + " = ?, " +
+            FOLLOWUP_4.val() + " = ?, " +
+            FEEDBACK.val() + " = ?, " +
+            LAST_UPDATED.val() + " = ? " +
+            " WHERE " + APPLICATION.val() + " = ?";
 
 
     private static final String CREATE_COMPANIES_TABLE = CREATE_COMPANIES.val();
@@ -80,6 +90,7 @@ public class Datasource {
     private PreparedStatement insertIntoApplications;
     private PreparedStatement insertIntoFollowUps;
     private PreparedStatement queryFollowUp;
+    private PreparedStatement updateFollowUp;
 
     private Connection conn;
 
@@ -92,6 +103,7 @@ public class Datasource {
             insertIntoApplications = conn.prepareStatement(INSERT_APPLICATIONS);
             insertIntoFollowUps = conn.prepareStatement(INSERT_FOLLOWUPS);
             queryFollowUp = conn.prepareStatement(QUERY_FOLLOWUP);
+            updateFollowUp = conn.prepareStatement(UPDATE_FOLLOWUP);
 
             return true;
         } catch (SQLException e) {
@@ -118,6 +130,9 @@ public class Datasource {
             }
             if (queryFollowUp != null) {
                 queryFollowUp.close();
+            }
+            if (updateFollowUp != null) {
+                updateFollowUp.close();
             }
             if (conn != null) {
                 conn.close();
@@ -388,8 +403,10 @@ public class Datasource {
         }
     }
 
-    public void insertFullApplication(String companyName, String jobTitle, String dateApplied, String postedDate,
+    public boolean insertFullApplication(String companyName, String jobTitle, String dateApplied, String postedDate,
                                       String postingUrl, String notes, String reminderDate, String contactName, String contactEmail) {
+
+        boolean succeeded;
 
         try {
             conn.setAutoCommit(false);
@@ -404,9 +421,11 @@ public class Datasource {
                 throw new SQLException("Unable to insert full application");
             } else {
                 conn.commit();
+                succeeded = true;
             }
 
         } catch (Exception e) {
+            succeeded = false;
             System.out.println("Insert full application exception: " + e.getMessage());
             try {
                 System.out.println("Performing roll back.");
@@ -422,6 +441,8 @@ public class Datasource {
                 System.out.println("Failed to reset auto commit to true: " + e.getMessage());
             }
         }
+
+        return succeeded;
     }
 
     public FollowUp retrieveFollowUp(String applicationId) {
@@ -449,7 +470,32 @@ public class Datasource {
         return null;
     }
 
-    public boolean updateFollowUp(String UAf1, String UAf2, String UAf3, String UAf4, String UAfb, String UAcp, String UAce, String UAupdatedDate) {
+    public boolean updateFollowUp(String UAf1, String UAf2, String UAf3, String UAf4,
+                                  String UAfb, String UAcp, String UAce, String applicationId) {
+
+        String today = LocalDate.now().toString();
+
+        try {
+            updateFollowUp.setString(1, UAcp);
+            updateFollowUp.setString(2, UAce);
+            updateFollowUp.setString(3, UAf1);
+            updateFollowUp.setString(4, UAf2);
+            updateFollowUp.setString(5, UAf3);
+            updateFollowUp.setString(6, UAf4);
+            updateFollowUp.setString(7, UAfb);
+            updateFollowUp.setString(8, today);
+            updateFollowUp.setString(9, applicationId);
+
+            int affectedRows = updateFollowUp.executeUpdate();
+            if (affectedRows != 1) {
+                throw new SQLException("Unable to update followup:");
+            } else {
+                return id;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Unable to update followup: " + e.getMessage());
+        }
 
         return false;
     }

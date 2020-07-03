@@ -115,6 +115,10 @@ public class MainController {
     private void toggleViews(Event e) {
         hideAllPanes();
         ((VBox)((Button)e.getSource()).getUserData()).setVisible(true);
+
+        if (((VBox)((Button)e.getSource()).getUserData()).equals(dataViewStack)) {
+            listCombinedView();
+        }
     }
 
     @FXML
@@ -239,8 +243,10 @@ public class MainController {
         String UAfb = UAfeedback.getText();
         String UAcp = UAcontactPerson.getText();
         String UAce = UAcontactEmail.getText();
-        String UAupdatedDate = LocalDate.now().toString();
+        String id = applicationListView.getSelectionModel().getSelectedItems().get(0).getApplicationId();
 
-        boolean successUpdate = Datasource.getInstance().updateFollowUp(UAf1, UAf2, UAf3, UAf4, UAfb, UAcp, UAce, UAupdatedDate);
+        boolean successUpdate = Datasource.getInstance().updateFollowUp(UAf1, UAf2, UAf3, UAf4, UAfb, UAcp, UAce, id);
+
+
     }
 }

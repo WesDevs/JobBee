@@ -1,6 +1,7 @@
 package com.wesdev.JobBee.Controllers;
 
 import com.wesdev.JobBee.models.Datasource;
+import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.DateCell;
@@ -12,6 +13,7 @@ import javafx.scene.text.Text;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,6 +93,7 @@ public class ApplicationFormController {
             String contactName = contactPerson.getText();
             String email = contactEmail.getText();
             String remindDate = applicationDate.getValue().plusWeeks(1).toString();
+
 
             Datasource.getInstance().insertFullApplication(companyName, position, appDate, postDate, postUrl, note, remindDate, contactName, email);
         }
@@ -198,6 +201,15 @@ public class ApplicationFormController {
             validationMessage.setText(sb.toString());
             return false;
         }
+    }
+
+    @FXML
+    public void clearEntries() {
+        textFields.forEach(tf -> tf.clear());
+        postedDate.getEditor().clear();
+        applicationDate.getEditor().clear();
+
+        closeOverlay();
     }
 
     @FXML
