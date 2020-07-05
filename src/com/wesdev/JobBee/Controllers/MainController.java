@@ -10,9 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-
-import java.time.LocalDate;
 
 public class MainController {
 
@@ -235,7 +232,6 @@ public class MainController {
 
     @FXML
     public void submitApplicationUpdate() {
-
         String UAf1 =  UAfollowUp1.getText();
         String UAf2 =  UAfollowUp2.getText();
         String UAf3 =  UAfollowUp3.getText();
@@ -247,6 +243,28 @@ public class MainController {
 
         boolean successUpdate = Datasource.getInstance().updateFollowUp(UAf1, UAf2, UAf3, UAf4, UAfb, UAcp, UAce, id);
 
+        if (successUpdate) {
+            UAfollowUp1.clear();
+            UAfollowUp2.clear();
+            UAfollowUp3.clear();
+            UAfollowUp4.clear();
+            UAfeedback.clear();
+            UAcontactEmail.clear();
+            UAcontactPerson.clear();
+            updateAppForm.setVisible(false);
+            appViewStack.setVisible(true);
+            showApplications();
+        }
+    }
 
+    @FXML
+    public void deactivateApplication() {
+        String id = applicationListView.getSelectionModel().getSelectedItems().get(0).getApplicationId();
+
+        boolean successDeactivate = Datasource.getInstance().deactivateApplication(id);
+
+        if (successDeactivate) {
+            showApplications();
+        }
     }
 }

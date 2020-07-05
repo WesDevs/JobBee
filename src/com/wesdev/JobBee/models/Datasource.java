@@ -21,7 +21,7 @@ public class Datasource {
     public static final String QUERY_ALL_FOLLOWUPS = SELECT_ALL.val() + TABLE_FOLLOWUPS.val();
     public static final String QUERY_COMBINED_VIEW = "SELECT "
             + TABLE_COMPANIES.val() + DOT.val() + NAME.val() + ", "
-            + TABLE_COMPANIES.val() + DOT.val() + ACTIVE.val() + ", "
+            + TABLE_APPLICATIONS.val() + DOT.val() + ACTIVE.val() + ", "
             + TABLE_APPLICATIONS.val() + DOT.val() + JOB_TITLE.val() + ", "
             + TABLE_APPLICATIONS.val() + DOT.val() + POSTED_DATE.val() + ", "
             + TABLE_APPLICATIONS.val() + DOT.val() + APPLICATION_DATE.val() + ", "
@@ -46,17 +46,18 @@ public class Datasource {
 
     public static final String QUERY_COMPANIES = "SELECT " + ID.val() + " FROM "
             + TABLE_COMPANIES.val() + " WHERE " + NAME.val() + " = ?";
+
     public static final String QUERY_FOLLOWUP = SELECT_ALL.val()
             + TABLE_FOLLOWUPS.val() + " WHERE " + APPLICATION.val() + " = ?";
 
     public static final String INSERT_COMPANIES = "INSERT INTO " + TABLE_COMPANIES.val()
-            + " ( " + ID.val() + ", " + NAME.val() + ", " + NOTES.val() + ", " + ACTIVE.val() + " ) VALUES(?, ?, ?, ?)";
+            + " ( " + ID.val() + ", " + NAME.val() + ", " + NOTES.val() + " ) VALUES(?, ?, ?)";
 
     public static final String INSERT_APPLICATIONS = "INSERT INTO " + TABLE_APPLICATIONS.val()
             + " ( " + ID.val() + ", " + COMPANY.val() + ", " + COMPANY_NAME.val() + ", "
             + JOB_TITLE.val() + ", " + APPLICATION_DATE.val() + ", " + POSTED_DATE.val()
             + ", " + REMINDER_DATE.val() + ", " + RESPONSE_TYPE.val()
-            + ", " + POSTING_URL.val() + " ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            + ", " + POSTING_URL.val() + ", " + ACTIVE.val()+ " ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     public static final String INSERT_FOLLOWUPS = "INSERT INTO " + TABLE_FOLLOWUPS.val()
             + " ( " + APPLICATION.val() + ", " + CONTACT_NAME.val() + ", "
@@ -75,6 +76,9 @@ public class Datasource {
             LAST_UPDATED.val() + " = ? " +
             " WHERE " + APPLICATION.val() + " = ?";
 
+    public static final String DEACTIVATE_APPLICATION = "UPDATE " + TABLE_APPLICATIONS.val() + " SET " +
+            ACTIVE.val() + "= ? WHERE " + ID.val() + " = ?";
+
 
     private static final String CREATE_COMPANIES_TABLE = CREATE_COMPANIES.val();
     private static final String CREATE_APPLICATIONS_TABLE = CREATE_APPLICATIONS.val();
@@ -91,6 +95,7 @@ public class Datasource {
     private PreparedStatement insertIntoFollowUps;
     private PreparedStatement queryFollowUp;
     private PreparedStatement updateFollowUp;
+    private PreparedStatement deactivateApplication;
 
     private Connection conn;
 
@@ -104,6 +109,7 @@ public class Datasource {
             insertIntoFollowUps = conn.prepareStatement(INSERT_FOLLOWUPS);
             queryFollowUp = conn.prepareStatement(QUERY_FOLLOWUP);
             updateFollowUp = conn.prepareStatement(UPDATE_FOLLOWUP);
+            deactivateApplication = conn.prepareStatement(DEACTIVATE_APPLICATION);
 
             return true;
         } catch (SQLException e) {
@@ -133,6 +139,9 @@ public class Datasource {
             }
             if (updateFollowUp != null) {
                 updateFollowUp.close();
+            }
+            if (deactivateApplication != null) {
+                deactivateApplication.close();
             }
             if (conn != null) {
                 conn.close();
@@ -172,7 +181,6 @@ public class Datasource {
                 Company company = new Company();
                 company.setName(results.getString(2));
                 company.setNote(results.getString(3));
-                company.setActive(results.getInt(4) == 1);
 
                 companies.add(company);
             }
@@ -201,6 +209,7 @@ public class Datasource {
                 app.setPostedDate(results.getString(6));
                 app.setInterviewDate(results.getString(8));
                 app.setPostingUrl(results.getString(9));
+                app.setActive(results.getInt(11) == 1);
 
                 applications.add(app);
             }
@@ -348,7 +357,6 @@ public class Datasource {
             insertIntoCompanies.setString(1, id);
             insertIntoCompanies.setString(2, companyName.toLowerCase());
             insertIntoCompanies.setString(3, notes == null ? "" : notes);
-            insertIntoCompanies.setBoolean(4, true);
 
             int affectedRows = insertIntoCompanies.executeUpdate();
             if (affectedRows != 1) {
@@ -374,6 +382,7 @@ public class Datasource {
         insertIntoApplications.setString(7, reminderDate);
         insertIntoApplications.setInt(8, 0);
         insertIntoApplications.setString(9, postingUrl);
+        insertIntoApplications.setInt(10,  1);
 
         int affectedRows = insertIntoApplications.executeUpdate();
         if (affectedRows != 1) {
@@ -488,9 +497,9 @@ public class Datasource {
 
             int affectedRows = updateFollowUp.executeUpdate();
             if (affectedRows != 1) {
-                throw new SQLException("Unable to update followup:");
+                return false;
             } else {
-                return id;
+                return true;
             }
 
         } catch (SQLException e) {
@@ -500,4 +509,21 @@ public class Datasource {
         return false;
     }
 
+    public boolean deactivateApplication(String id) {
+        try {
+            deactivateApplication.setInt(1, 0);
+            deactivateApplication.setString(2, id);
+
+            int affectedRows = deactivateApplication.executeUpdate();
+            if (affectedRows != 1) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Unable to deactivate application: " + e.getMessage());
+            return false;
+        }
+    }
 }

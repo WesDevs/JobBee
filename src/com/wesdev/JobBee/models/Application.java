@@ -1,19 +1,21 @@
 package com.wesdev.JobBee.models;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Application {
     private Company company;
     private SimpleStringProperty companyName;
-    private SimpleStringProperty jobTitle;  //
-    private SimpleStringProperty applicationDate; //
-    private SimpleStringProperty postedDate; //
+    private SimpleStringProperty jobTitle;
+    private SimpleStringProperty applicationDate;
+    private SimpleStringProperty postedDate;
     private FollowUp followUp;
-    private SimpleStringProperty interviewDate; //
-    private SimpleStringProperty postingUrl; //
-    private SimpleIntegerProperty responseType; //
+    private SimpleStringProperty interviewDate;
+    private SimpleStringProperty postingUrl;
+    private SimpleIntegerProperty responseType;
     private SimpleStringProperty remindDate;
+    private SimpleBooleanProperty active;
 
     public Application() {
         this.companyName = new SimpleStringProperty();
@@ -24,7 +26,7 @@ public class Application {
         this.postingUrl = new SimpleStringProperty();
         this.responseType = new SimpleIntegerProperty();
         this.remindDate = new SimpleStringProperty();
-
+        this.active = new SimpleBooleanProperty();
     }
 
     public Application(Company company, SimpleStringProperty jobTitle,
@@ -148,5 +150,17 @@ public class Application {
 
     public String getRemindDate() {
         return remindDate.get();
+    }
+
+    public SimpleBooleanProperty activeVal() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active.set(active);
+    }
+
+    public Boolean isActive() {
+        return this.active.get();
     }
 }

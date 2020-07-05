@@ -116,11 +116,6 @@
                                                         <PropertyValueFactory property="note" />
                                                     </cellValueFactory>
                                                 </TableColumn>
-                                                <TableColumn prefWidth="100.0" text="Active">
-                                                    <cellValueFactory>
-                                                        <PropertyValueFactory property="active" />
-                                                    </cellValueFactory>
-                                                </TableColumn>
                                             </columns>
                                             <StackPane.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -161,6 +156,11 @@
                                                 <TableColumn prefWidth="100.0" text="ResponseType">
                                                     <cellValueFactory>
                                                         <PropertyValueFactory property="responseType" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn prefWidth="100.0" text="Active">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="active" />
                                                     </cellValueFactory>
                                                 </TableColumn>
                                             </columns>
@@ -297,6 +297,9 @@
                                     </children>
                                 </StackPane>
                             </children>
+                        </VBox>
+                        <VBox fx:id="addEntryStack" alignment="CENTER" fillWidth="false" prefHeight="599.0" prefWidth="795.0" style="-fx-background-color: #4f4c49;">
+                            <fx:include source="applicationForm.fxml" />
                         </VBox>
                   <VBox fx:id="updateAppForm" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4f4c49;">
                      <children>
@@ -454,50 +457,6 @@
                         </VBox>
                      </children>
                   </VBox>
-                        <VBox fx:id="addEntryStack" alignment="CENTER" fillWidth="false" prefHeight="599.0" prefWidth="795.0" style="-fx-background-color: #4f4c49;">
-                            <fx:include source="applicationForm.fxml" />
-                        </VBox>
-                        <VBox fx:id="appViewStack" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4f4c49;">
-                     <children>
-                                <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="544.0" spacing="10.0" style="-fx-background-color: #4f4c49;">
-                                    <padding>
-                                        <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
-                                    </padding>
-                                    <children>
-                              <HBox>
-                                 <children>
-                                              <ImageView fitHeight="20.0" fitWidth="20.0">
-                                                  <image>
-                                                      <Image url="@assets/hexagon.png" />
-                                                  </image>
-                                              </ImageView>
-                                              <Text fill="#f2c233" strokeType="OUTSIDE" strokeWidth="0.0" text="Active Applications" wrappingWidth="155.78748321533203">
-                                                  <font>
-                                                      <Font name="System Bold" size="16.0" />
-                                                  </font>
-                                              </Text>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="674.0" spacing="20.0">
-                                 <children>
-                                    <CheckBox fx:id="toggleActiveApps" mnemonicParsing="false" onAction="#showApplications" prefHeight="18.0" prefWidth="112.0" text="Show Inactive" textFill="#f2c233">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
-                                    </CheckBox>
-                                    <Button fx:id="updateApplication" mnemonicParsing="false" onAction="#updateApplication" styleClass="application-view-buttons" text="Update" />
-                                    <Button fx:id="deactivateApplication" mnemonicParsing="false" styleClass="application-view-buttons" text="Deactivate" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" />
-                                 </padding>
-                              </HBox>
-                                    </children>
-                                </HBox>
-                                <ListView fx:id="applicationListView" prefHeight="541.0" prefWidth="814.0" style="-fx-background-color: transparent;">
-                                </ListView>
-                     </children>
-                        </VBox>
                         <VBox fx:id="statStack" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4f4c49;">
                             <children>
                                 <HBox alignment="CENTER" prefHeight="43.0" prefWidth="814.0" spacing="20.0">
@@ -591,6 +550,68 @@
                            </children>
                         </StackPane>
                             </children>
+                        </VBox>
+                        <VBox fx:id="appViewStack" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4f4c49;">
+                     <children>
+                                <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="544.0" spacing="10.0" style="-fx-background-color: #4f4c49;">
+                                    <padding>
+                                        <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+                                    </padding>
+                                    <children>
+                              <HBox>
+                                 <children>
+                                              <ImageView fitHeight="20.0" fitWidth="20.0">
+                                                  <image>
+                                                      <Image url="@assets/hexagon.png" />
+                                                  </image>
+                                              </ImageView>
+                                              <Text fill="#f2c233" strokeType="OUTSIDE" strokeWidth="0.0" text="Active Applications" wrappingWidth="155.78748321533203">
+                                                  <font>
+                                                      <Font name="System Bold" size="16.0" />
+                                                  </font>
+                                              </Text>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="674.0" spacing="15.0">
+                                 <children>
+                                    <CheckBox fx:id="toggleActiveApps" mnemonicParsing="false" onAction="#showApplications" prefHeight="18.0" prefWidth="112.0" text="Show Inactive" textFill="#f2c233">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <Button fx:id="updateApplication" mnemonicParsing="false" onAction="#updateApplication" styleClass="submit-button" text="Update" textFill="#f2c233">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0">
+                                             <image>
+                                                <Image url="@assets/hexagon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic></Button>
+                                    <Button fx:id="deactivateApplication" onAction="#deactivateApplication" mnemonicParsing="false" styleClass="submit-button" text="Deactivate" textFill="#f2c233">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0">
+                                             <image>
+                                                <Image url="@assets/hexagon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" />
+                                 </padding>
+                              </HBox>
+                                    </children>
+                                </HBox>
+                                <ListView fx:id="applicationListView" prefHeight="541.0" prefWidth="814.0" style="-fx-background-color: transparent;">
+                                </ListView>
+                     </children>
                         </VBox>
                     </children>
                 </StackPane>

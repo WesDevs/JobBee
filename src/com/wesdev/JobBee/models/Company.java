@@ -7,22 +7,19 @@ public class Company {
 
     private SimpleStringProperty name;
     private SimpleStringProperty note;
-    private SimpleBooleanProperty active;
 
     public Company() {
         this.name = new SimpleStringProperty();
         this.note = new SimpleStringProperty();
-        this.active = new SimpleBooleanProperty();
     }
 
     public Company(String name) {
         this.name.set(name);
     }
 
-    public Company(String name, String note, String url, Boolean active) {
+    public Company(String name, String note, String url) {
         this.name.set(name);
         this.note.set(note);
-        this.active.set(active);
     }
 
     public SimpleStringProperty nameVal() {
@@ -49,15 +46,5 @@ public class Company {
         return this.note.get();
     }
 
-    public SimpleBooleanProperty activeVal() {
-        return active;
-    }
 
-    public void setActive(Boolean active) {
-        this.active.set(active);
-    }
-
-    public Boolean isActive() {
-        return this.active.get();
-    }
 }
