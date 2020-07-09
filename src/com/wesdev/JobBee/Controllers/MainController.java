@@ -53,9 +53,6 @@ public class MainController {
     private Button dataViewButton;
 
     @FXML
-    private Button UAsubmit;
-
-    @FXML
     private StackPane mainStackPane;
 
     @FXML

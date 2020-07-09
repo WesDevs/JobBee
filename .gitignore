@@ -20,5 +20,5 @@ out/
 *.ipr
 *.iws
 
-
+META-INF
 *.db
