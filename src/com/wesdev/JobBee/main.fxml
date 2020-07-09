@@ -457,100 +457,6 @@
                         </VBox>
                      </children>
                   </VBox>
-                        <VBox fx:id="statStack" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4f4c49;">
-                            <children>
-                                <HBox alignment="CENTER" prefHeight="43.0" prefWidth="814.0" spacing="20.0">
-                                    <children>
-                                        <Button mnemonicParsing="false" onAction="#listAllCompanies" style="-fx-background-color: transparent;" text="OverView" textFill="#f2c233">
-                                            <font>
-                                                <Font name="System Bold" size="16.0" />
-                                            </font>
-                                            <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                            </cursor>
-                                            <graphic>
-                                                <ImageView fitHeight="20.0" fitWidth="20.0">
-                                                    <image>
-                                                        <Image url="@assets/hexagon.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                            <HBox.margin>
-                                                <Insets />
-                                            </HBox.margin>
-                                        </Button>
-                                        <Button mnemonicParsing="false" onAction="#listAllCompanies" style="-fx-background-color: transparent;" text="Timeline" textFill="#f2c233">
-                                            <font>
-                                                <Font name="System Bold" size="16.0" />
-                                            </font>
-                                            <cursor>
-                                                <Cursor fx:constant="DEFAULT" />
-                                            </cursor>
-                                            <graphic>
-                                                <ImageView fitHeight="20.0" fitWidth="20.0">
-                                                    <image>
-                                                        <Image url="@assets/hexagon.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </Button>
-                                    </children>
-                                    <VBox.margin>
-                                        <Insets top="20.0" />
-                                    </VBox.margin>
-                                </HBox>
-                        <StackPane prefHeight="564.0" prefWidth="814.0">
-                           <children>
-                              <HBox prefHeight="304.0" prefWidth="814.0">
-                                 <children>
-                                    <VBox alignment="CENTER" prefHeight="542.0" prefWidth="862.0" spacing="20.0">
-                                       <children>
-                                          <ImageView fitHeight="80.0" fitWidth="78.0">
-                                             <image>
-                                                <Image url="@assets/hive.png" />
-                                             </image>
-                                             <VBox.margin>
-                                                <Insets bottom="30.0" />
-                                             </VBox.margin>
-                                          </ImageView>
-                                          <Label prefHeight="26.0" prefWidth="216.0" text="Total Job Applications: 23" textAlignment="CENTER" textFill="#f2c233">
-                                             <font>
-                                                <Font name="System Bold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Label prefHeight="26.0" prefWidth="219.0" text="Total Active Applications: 8" textAlignment="CENTER" textFill="#f2c233">
-                                             <font>
-                                                <Font name="System Bold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Label prefHeight="26.0" prefWidth="225.0" text="Total Positive Responses: 5" textAlignment="CENTER" textFill="#f2c233">
-                                             <font>
-                                                <Font name="System Bold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Label prefHeight="26.0" prefWidth="322.0" text="Total Amount of Companies Applied: 21" textAlignment="CENTER" textFill="#f2c233">
-                                             <font>
-                                                <Font name="System Bold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Label prefHeight="26.0" prefWidth="235.0" text="Total Feedbacks Recieved: 4" textAlignment="CENTER" textFill="#f2c233">
-                                             <font>
-                                                <Font name="System Bold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Label prefHeight="26.0" prefWidth="166.0" text="Total Rejections: 10" textAlignment="CENTER" textFill="#f2c233">
-                                             <font>
-                                                <Font name="System Bold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </StackPane>
-                            </children>
-                        </VBox>
                         <VBox fx:id="appViewStack" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4f4c49;">
                      <children>
                                 <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="544.0" spacing="10.0" style="-fx-background-color: #4f4c49;">
@@ -590,7 +496,7 @@
                                              </image>
                                           </ImageView>
                                        </graphic></Button>
-                                    <Button fx:id="deactivateApplication" onAction="#deactivateApplication" mnemonicParsing="false" styleClass="submit-button" text="Deactivate" textFill="#f2c233">
+                                    <Button fx:id="deactivateApplication" mnemonicParsing="false" onAction="#deactivateApplication" styleClass="submit-button" text="Deactivate" textFill="#f2c233">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -612,6 +518,97 @@
                                 <ListView fx:id="applicationListView" prefHeight="541.0" prefWidth="814.0" style="-fx-background-color: transparent;">
                                 </ListView>
                      </children>
+                        </VBox>
+                        <VBox fx:id="statStack" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4f4c49;">
+                            <children>
+                                <HBox alignment="CENTER" prefHeight="43.0" prefWidth="814.0" spacing="20.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#listAllCompanies" style="-fx-background-color: transparent;" text="OverView" textFill="#f2c233">
+                                            <font>
+                                                <Font name="System Bold" size="16.0" />
+                                            </font>
+                                            <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                            </cursor>
+                                            <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0">
+                                                    <image>
+                                                        <Image url="@assets/hexagon.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <HBox.margin>
+                                                <Insets />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                </HBox>
+                        <StackPane prefHeight="564.0" prefWidth="814.0">
+                           <children>
+                              <HBox prefHeight="304.0" prefWidth="814.0">
+                                 <children>
+                                    <VBox alignment="TOP_CENTER" prefHeight="542.0" prefWidth="862.0" spacing="20.0">
+                                       <children>
+                                          <ImageView fitHeight="80.0" fitWidth="78.0">
+                                             <image>
+                                                <Image url="@assets/hive.png" />
+                                             </image>
+                                             <VBox.margin>
+                                                <Insets bottom="30.0" top="80.0" />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <HBox alignment="TOP_CENTER" prefHeight="26.0" prefWidth="461.0">
+                                             <children>
+                                                <Label prefHeight="26.0" prefWidth="210.0" text="Total companies applied:" textAlignment="CENTER" textFill="#f2c233">
+                                                   <font>
+                                                      <Font name="System Bold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="totalCompaniesApplied" prefHeight="30.0" prefWidth="37.0" text="0" textFill="#f2c233">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="TOP_CENTER" prefHeight="26.0" prefWidth="461.0">
+                                             <children>
+                                                <Label prefHeight="26.0" prefWidth="208.0" text="Total Active Applications:" textAlignment="CENTER" textFill="#f2c233">
+                                                   <font>
+                                                      <Font name="System Bold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="totalActiveApps" prefHeight="26.0" prefWidth="37.0" text="  0" textFill="#f2c233">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="TOP_CENTER" prefHeight="26.0" prefWidth="461.0">
+                                             <children>
+                                                <Label prefHeight="26.0" prefWidth="160.0" text="Total jobs applied:" textAlignment="CENTER" textFill="#f2c233">
+                                                   <font>
+                                                      <Font name="System Bold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="totalJobApps" prefHeight="30.0" prefWidth="37.0" text="0" textFill="#f2c233">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </StackPane>
+                            </children>
                         </VBox>
                     </children>
                 </StackPane>
@@ -688,7 +685,7 @@
                                                 <Polyline fill="#7d36ff" points="-21.200084686279297, 40.00001525878906, -2.0000782012939453, 68.80000305175781, 112.39999389648438, 68.79999542236328, 94.80001831054688, 40.00000762939453" stroke="TRANSPARENT" strokeType="INSIDE" />
                                                 <HBox alignment="CENTER" prefHeight="29.0" prefWidth="141.0">
                                                     <children>
-                                                        <Button fx:id="statsButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#toggleViews" prefHeight="0.0" prefWidth="99.0" style="-fx-background-color: transparent;" text="Statistics" textFill="WHITE">
+                                                        <Button fx:id="statsButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#toggleViews" onMouseClicked="#loadStats" prefHeight="0.0" prefWidth="99.0" style="-fx-background-color: transparent;" text="Statistics" textFill="WHITE">
                                                             <font>
                                                                 <Font name="Gill Sans MT" size="14.0" />
                                                             </font>

@@ -86,6 +86,15 @@ public class MainController {
     private TextField UAcontactEmail;
 
     @FXML
+    private Label totalJobApps;
+
+    @FXML
+    private Label totalActiveApps;
+
+    @FXML
+    private Label totalCompaniesApplied;
+
+    @FXML
     private void initialize() {
         hideAllPanes();
         appViewStack.setVisible(true);
@@ -266,5 +275,16 @@ public class MainController {
         if (successDeactivate) {
             showApplications();
         }
+    }
+
+    @FXML
+    public void loadStats() {
+
+        double[] data = Datasource.getInstance().getStats();
+
+        totalJobApps.setText(String.valueOf((int) data[0]));
+        totalActiveApps.setText(String.valueOf((int) data[1]));
+        totalCompaniesApplied.setText(String.valueOf((int) data[2]));
+
     }
 }

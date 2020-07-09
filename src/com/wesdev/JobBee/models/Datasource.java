@@ -80,6 +80,9 @@ public class Datasource {
             ACTIVE.val() + "= ? WHERE " + ID.val() + " = ?";
 
 
+    public static final String COUNT_COMPANIES = "SELECT COUNT() FROM " + TABLE_COMPANIES.val();
+
+
     private static final String CREATE_COMPANIES_TABLE = CREATE_COMPANIES.val();
     private static final String CREATE_APPLICATIONS_TABLE = CREATE_APPLICATIONS.val();
     private static final String CREATE_FOLLOWUPS_TABLE = CREATE_FOLLOWUPS.val();
@@ -525,5 +528,47 @@ public class Datasource {
             System.out.println("Unable to deactivate application: " + e.getMessage());
             return false;
         }
+    }
+
+    private double getNumOfCompanies() throws SQLException {
+        StringBuilder sb = new StringBuilder(COUNT_COMPANIES);
+
+        Statement statement = conn.createStatement();
+        ResultSet results = statement.executeQuery(sb.toString());
+
+        if (results.next()) {
+            return (double) results.getInt(1);
+        }
+
+        return 0;
+    }
+
+    public double[] getStats() {
+
+        StringBuilder sb = new StringBuilder(QUERY_ALL_APPLICATIONS);
+
+        double[] data = new double[10];
+        double numOfApps = 0;
+        double actives = 0;
+
+        try (Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery(sb.toString())) {
+
+            while(results.next()) {
+                numOfApps = numOfApps + 1;
+                if (results.getInt(12) == 1) {
+                    actives = actives + 1;
+                }
+            }
+
+            data[0] = numOfApps;
+            data[1] = actives;
+            data[2] = getNumOfCompanies();
+
+        } catch (SQLException e) {
+            System.out.println("Failed to retrieve apps from stats: " + e.getMessage());
+        }
+
+        return data;
     }
 }
